@@ -12,15 +12,15 @@ Example usage:
     $ ls
     Procfile  package.json  web.js
 
-    $ heroku create --stack cedar --buildpack http://github.com/heroku/heroku-buildpack-nodejs.git
+    $ heroku create --stack cedar --buildpack http://github.com/liquid/heroku-buildpack-nodejs.git
 
     $ git push heroku master
     ...
     -----> Heroku receiving push
     -----> Fetching custom buildpack
     -----> Node.js app detected
-    -----> Vendoring node 0.4.7
-    -----> Installing dependencies with npm 1.0.8
+    -----> Vendoring node 0.6.4
+    -----> Installing dependencies with npm 1.1.0-alpha-6
            express@2.1.0 ./node_modules/express
            ├── mime@1.2.2
            ├── qs@0.3.1
@@ -42,14 +42,14 @@ First you'll need to build a Heroku-compatible version of Node.js:
 
     $ export AWS_ID=xxx AWS_SECRET=yyy S3_BUCKET=zzz
     $ s3 create $S3_BUCKET
-    $ support/package_node 0.5.8
+    $ support/package_node 0.6.4
 
 Open `bin/compile` in your editor, and change the following lines:
 
-    NODE_VERSION="0.5.8"
+    NODE_VERSION="0.6.4"
 
     S3_BUCKET=zzz
 
 Commit and push the changes to your buildpack to your Github fork, then push your sample app to Heroku to test.  You should see:
 
-    -----> Vendoring node 0.5.8
+    -----> Vendoring node 0.6.4

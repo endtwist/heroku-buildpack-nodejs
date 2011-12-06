@@ -19,7 +19,7 @@ Example usage:
     -----> Heroku receiving push
     -----> Fetching custom buildpack
     -----> Node.js app detected
-    -----> Vendoring node 0.6.4
+    -----> Vendoring node 0.6.5
     -----> Installing dependencies with npm 1.1.0-alpha-6
            express@2.1.0 ./node_modules/express
            ├── mime@1.2.2
@@ -42,14 +42,15 @@ First you'll need to build a Heroku-compatible version of Node.js:
 
     $ export AWS_ID=xxx AWS_SECRET=yyy S3_BUCKET=zzz
     $ s3 create $S3_BUCKET
-    $ support/package_node 0.6.4
+    $ support/package_node 0.6.5
 
 Open `bin/compile` in your editor, and change the following lines:
 
-    NODE_VERSION="0.6.4"
+    NODE_VERSION="0.6.5"
 
     S3_BUCKET=zzz
 
 Commit and push the changes to your buildpack to your Github fork, then push your sample app to Heroku to test.  You should see:
 
-    -----> Vendoring node 0.6.4
+    -----> Vendoring node 0.6.5
+    -----> Installing dependencies with npm 1.1.0-alpha-6

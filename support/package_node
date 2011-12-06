@@ -10,17 +10,17 @@ if [ "$node_version" == "" ]; then
 fi
 
 if [ "$AWS_ID" == "" ]; then
-  echo "must set AWS_ID"
+  echo "You need to set AWS_ID environment variable in order to store your buildpack on Amazon S3."
   exit 1
 fi
 
 if [ "$AWS_SECRET" == "" ]; then
-  echo "must set AWS_SECRET"
+  echo "You need to set AWS_SECRET environment variable in order to store your buildpack on Amazon S3."
   exit 1
 fi
 
 if [ "$S3_BUCKET" == "" ]; then
-  echo "must set S3_BUCKET"
+  echo "You need to set S3_BUCKET environment variable in order to store your buildpack on Amazon S3."
   exit 1
 fi
 

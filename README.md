@@ -44,20 +44,25 @@ Workflow:
 
 * Fork this buildpack on Github and clone it to somewhere in order to make changes to it
 * Set the nexessary environment variables in your shell:
-    $ export AWS_ID="YOUR-AWS-ID" AWS_SECRET="YOUR-AWS-SECRET" S3_BUCKET="YOUR-S3BUCKET-NAME"
-* Create your S3 bucket by running `s3 create $S3_BUCKET`
+
+        $ export AWS_ID="YOUR-AWS-ID" AWS_SECRET="YOUR-AWS-SECRET" S3_BUCKET="YOUR-S3BUCKET-NAME"
+
+* Create your S3 bucket (in case it doesn't exist yet):
+
+        $ s3 create $S3_BUCKET
 * Customise your version of Node that you want to use by running `./support/package_node` with the desired version of Node. The script will compile Node and push the binaries ready onto your S3 bucket:
 
-	$ ./support/package_node 0.6.6
+        $ ./support/package_node 0.6.6
+
 * Open `bin/compile` in your editor, and change the following lines:
 
-    NODE_VERSION="0.6.6"
-    S3_BUCKET=zzz
+        NODE_VERSION="0.6.6"
+		S3_BUCKET=zzz
 * Commit and push the changes to your buildpack to your Github fork
 * Create a test application that makes use of your custom buildpack and push to it:
 
-  $ heroku create --buildpack <your-github-url>
+        $ heroku create --buildpack <your-github-url>
 * You should see:
 
-    -----> Vendoring node 0.6.6
-    -----> Installing dependencies with npm 1.1.0-alpha-6
+        -----> Vendoring node 0.6.6
+        -----> Installing dependencies with npm 1.1.0-alpha-6

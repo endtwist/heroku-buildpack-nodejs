@@ -1,7 +1,7 @@
 Heroku buildpack: Node.js
 =========================
 
-This is a Heroku buildpack for Node.js apps.
+This is a custom Heroku buildpack for Node.js applications that run on the [Cedar](http://devcenter.heroku.com/articles/cedar) runtime stack on Heroku.
 It uses [NPM](http://npmjs.org/) and [SCons](http://www.scons.org/).
 
 Usage

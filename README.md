@@ -4,8 +4,8 @@ Heroku buildpack: Node.js
 This is a custom Heroku buildpack for Node.js applications that run on the [Cedar](http://devcenter.heroku.com/articles/cedar) runtime stack on Heroku.
 It uses [NPM](http://npmjs.org/) and [SCons](http://www.scons.org/).
 
-Usage
------
+Quick start
+-----------
 
 Example usage:
 
@@ -29,28 +29,35 @@ Example usage:
 
 The buildpack will detect your app as Node.js if it has the file `package.json` in the root.  It will use NPM to install your dependencies, and vendors a version of the Node.js runtime into your slug.  The `node_modules` directory will be cached between builds to allow for faster NPM install time.
 
-Hacking
--------
+Customization
+-------------
 
-To use this buildpack, fork it on Github.  Push up changes to your fork, then create a test app with `--buildpack <your-github-url>` and push to it.
+You can create your own buildpack in order to use different versions of Node.js and/or NPM. To change the vendored binaries for Node.js, NPM, and SCons, use the helper scripts in the `support/` subdirectory.
 
-To change the vendored binaries for Node.js, NPM, and SCons, use the helper scripts in the `support/` subdirectory.  You'll need an S3-enabled AWS account and a bucket to store your binaries in.
+You are going to need the following:
 
-For example, you can change the vendored version of Node.js to v0.5.8.
+* An S3 enabled AWS account to store your binaries in.
+* Your application must use NPM to manage dependencies. (See `package.json` on the [Heroku Dev Center](http://devcenter.heroku.com/articles/node-js#declare_dependencies_with_npm)).
+* Obviously a Heroku user account. [Signup is free and instant](https://api.heroku.com/signup).
 
-First you'll need to build a Heroku-compatible version of Node.js:
+Workflow:
 
-    $ export AWS_ID=xxx AWS_SECRET=yyy S3_BUCKET=zzz
-    $ s3 create $S3_BUCKET
-    $ support/package_node 0.6.6
+* Fork this buildpack on Github and clone it to somewhere in order to make changes to it
+* Set the nexessary environment variables in your shell:
+    $ export AWS_ID="YOUR-AWS-ID" AWS_SECRET="YOUR-AWS-SECRET" S3_BUCKET="YOUR-S3BUCKET-NAME"
+* Create your S3 bucket by running `s3 create $S3_BUCKET`
+* Customise your version of Node that you want to use by running `./support/package_node` with the desired version of Node. The script will compile Node and push the binaries ready onto your S3 bucket:
 
-Open `bin/compile` in your editor, and change the following lines:
+	$ ./support/package_node 0.6.6
+* Open `bin/compile` in your editor, and change the following lines:
 
     NODE_VERSION="0.6.6"
-
     S3_BUCKET=zzz
+* Commit and push the changes to your buildpack to your Github fork
+* Create a test application that makes use of your custom buildpack and push to it:
 
-Commit and push the changes to your buildpack to your Github fork, then push your sample app to Heroku to test.  You should see:
+  $ heroku create --buildpack <your-github-url>
+* You should see:
 
     -----> Vendoring node 0.6.6
     -----> Installing dependencies with npm 1.1.0-alpha-6
